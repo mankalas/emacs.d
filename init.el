@@ -6,6 +6,27 @@
 
 (setq mac-command-modifier 'meta)
 
+;; Melpa
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(defun require-package (package &optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+  (or (package-installed-p package min-version)
+      (let* ((known (cdr (assoc package package-archive-contents)))
+             (best (car (sort known (lambda (a b)
+                                      (version-list-<= (package-desc-version b)
+                                                       (package-desc-version a)))))))
+        (if (and best (version-list-<= min-version (package-desc-version best)))
+            (package-install best)
+          (if no-refresh
+              (error "No version of %s >= %S is available" package min-version)
+            (package-refresh-contents)
+            (require-package package min-version t)))
+        (package-installed-p package min-version))))
+
 ;; Custom
 (setq custom-file (concat user-emacs-directory "/custom.el"))
 
@@ -13,15 +34,12 @@
 (desktop-save-mode 1)
 
 ;; elpa
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
 
 ;; magit
-(package-install 'magit)
+(require-package 'magit)
 
 ;; theme
-(package-install 'zenburn-theme)
+(require-package 'zenburn-theme)
 (load-theme 'zenburn t)
 
 ;; GUI
@@ -58,7 +76,7 @@
          (list (line-beginning-position) (line-beginning-position 2)))))
 
 ;;; Duplicate line
-(package-install 'move-dup)
+(require-package 'move-dup)
 (require 'move-dup)
 (define-key global-map [M-up] 'move-dup-move-lines-up)
 (define-key global-map [M-down] 'move-dup-move-lines-down)
@@ -75,7 +93,7 @@
   (setq org-journal-dir (expand-file-name "journal")))
   
 ;;; Journal
-(package-install 'org-journal)
+(require-package 'org-journal)
 (require 'org-journal)
 
 ;;; Capture templates
