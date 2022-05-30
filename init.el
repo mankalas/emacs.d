@@ -128,3 +128,11 @@ re-downloaded in order to locate PACKAGE."
      (ruby . t)
      (shell . t)
      )))
+
+;; Search
+(require-package 'anzu)
+(require 'anzu)
+(add-hook 'after-init-hook 'global-anzu-mode)
+(setq anzu-mode-lighter "")
+(global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
+(global-set-key [remap query-replace] 'anzu-query-replace)
