@@ -136,3 +136,9 @@ re-downloaded in order to locate PACKAGE."
 (setq anzu-mode-lighter "")
 (global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
 (global-set-key [remap query-replace] 'anzu-query-replace)
+
+;; Projectile
+(require-package 'projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
