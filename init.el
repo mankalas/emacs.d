@@ -89,6 +89,8 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'org-bullets)
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;;;; So long lines flow and adjust to the width of the window
+(add-hook 'org-mode-hook 'visual-line-mode)
 
 ;;; Default dirs
 (let ((default-directory "~/org/"))
