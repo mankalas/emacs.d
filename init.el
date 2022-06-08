@@ -142,3 +142,6 @@ re-downloaded in order to locate PACKAGE."
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
+;; YAML
+(require-package 'yaml-mode)
+(require 'yaml-mode)
