@@ -89,9 +89,10 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'org-bullets)
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 ;;; Default dirs
 (let ((default-directory "~/org/"))
-  (setq org-default-notes-file-path (expand-file-name "notes.org"))
+  (setq org-default-notes-file (expand-file-name "notes.org"))
   (setq refile-file-path (expand-file-name "todo.org"))
   (setq events-file-path (expand-file-name "events.org"))
   (setq org-journal-dir (expand-file-name "journal")))
@@ -123,6 +124,7 @@ re-downloaded in order to locate PACKAGE."
 (setq org-refile-use-cache nil)
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
+
 ;;; Org Babel
 (setq org-confirm-babel-evaluate nil)
 (with-eval-after-load 'org
