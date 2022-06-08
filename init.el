@@ -126,6 +126,10 @@ re-downloaded in order to locate PACKAGE."
 (setq org-refile-use-cache nil)
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
+;; Targets include this file and any file contributing to the agenda - up to 5 levels deep
+(setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
+(setq org-refile-use-outline-path t)
+(setq org-outline-path-complete-in-steps nil)
 
 ;;; Org Babel
 (setq org-confirm-babel-evaluate nil)
