@@ -85,6 +85,10 @@ re-downloaded in order to locate PACKAGE."
 
 ;; Org
 
+;;; GUI
+(require-package 'org-bullets)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;;; Default dirs
 (let ((default-directory "~/org/"))
   (setq org-default-notes-file-path (expand-file-name "notes.org"))
