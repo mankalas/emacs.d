@@ -4,3 +4,7 @@
 /ido.last
 /custom.el
 *~
+bookmarks
+elpa/
+projectile-bookmarks.eld
+transient/
