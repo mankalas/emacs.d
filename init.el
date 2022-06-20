@@ -157,3 +157,8 @@ re-downloaded in order to locate PACKAGE."
 ;; YAML
 (require-package 'yaml-mode)
 (require 'yaml-mode)
+
+;; Ledger
+(require-package 'ledger-mode)
+(require 'ledger-mode)
+(setq ledger-binary-path "/usr/local/bin/ledger")
