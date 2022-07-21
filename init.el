@@ -98,10 +98,11 @@ re-downloaded in order to locate PACKAGE."
   (setq refile-file-path (expand-file-name "todo.org"))
   (setq events-file-path (expand-file-name "events.org"))
   (setq org-journal-dir (expand-file-name "journal")))
-  
+
 ;;; Journal
 (require-package 'org-journal)
 (require 'org-journal)
+(define-key global-map "\C-cj" 'org-journal-new-entry)
 
 ;;; Capture templates
 (setq org-capture-templates
