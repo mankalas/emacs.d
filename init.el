@@ -121,7 +121,7 @@ re-downloaded in order to locate PACKAGE."
 (define-key global-map "\C-cc" 'org-capture)
 
 ;;; Agenda
-(setq org-agenda-files '("~/org/"))
+(setq org-agenda-files '("~/Dropbox/org/"))
 
 ;;; Refiling
 (setq org-refile-use-cache nil)
