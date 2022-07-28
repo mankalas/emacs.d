@@ -139,6 +139,7 @@ re-downloaded in order to locate PACKAGE."
    '((emacs-lisp . t)
      (ruby . t)
      (shell . t)
+     (sql . t)
      )))
 
 ;; Search
