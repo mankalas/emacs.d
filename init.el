@@ -43,10 +43,22 @@ locate PACKAGE."
 ;; Custom
 (setq custom-file (concat user-emacs-directory "/custom.el"))
 
+;; PATH
+(require-package 'exec-path-from-shell)
+
+(with-eval-after-load 'exec-path-from-shell
+  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+    (add-to-list 'exec-path-from-shell-variables var)))
+
+
+(when (or (memq window-system '(mac ns x pgtk))
+          (unless (memq system-type '(ms-dos windows-nt))
+            (daemonp)))
+  (exec-path-from-shell-initialize))
+
+
 ;; Desktop
 (desktop-save-mode 1)
-
-;; elpa
 
 ;; magit
 (require-package 'magit)
@@ -106,10 +118,11 @@ locate PACKAGE."
 (add-hook 'org-mode-hook 'visual-line-mode)
 
 ;;; Default dirs
-(let ((default-directory "~/org/"))
+(let ((default-directory "~/Dropbox/org/"))
   (setq org-default-notes-file (expand-file-name "notes.org"))
   (setq refile-file-path (expand-file-name "todo.org"))
   (setq events-file-path (expand-file-name "events.org"))
+  (setq roadtrip-file-path (expand-file-name "roadtrip.org"))
   (setq org-journal-dir (expand-file-name "journal")))
 
 ;;; Journal
@@ -125,7 +138,8 @@ locate PACKAGE."
 	 "* %? :NOTE:") ; "" => `org-default-notes-file'
 	("e" "event" entry (file events-file-path)
 	 "* %?\nSCHEDULED: %T")
-	))
+	("a" "arrival" entry (file roadtrip-file-path)
+	 "** Arrival\n\n*** TODO Change car insurance address\n\n*** TODO Text Marina\n\n")))
 
 
 ;;; Keybindings
@@ -176,3 +190,67 @@ locate PACKAGE."
 (require-package 'ledger-mode)
 (require 'ledger-mode)
 (setq ledger-binary-path "/usr/local/bin/ledger")
+
+;; LSP
+(maybe-require-package 'eglot)
+(maybe-require-package 'consult-eglot)
+
+;; Haskell
+(when (maybe-require-package 'haskell-mode)
+  (add-hook 'haskell-mode-hook 'eglot-ensure)
+
+
+;;; CamelCase handling
+  (add-hook 'haskell-cabal-mode 'subword-mode)
+  (add-hook 'haskell-mode-hook 'subword-mode)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+;;; Source code helpers
+
+  (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
+
+  (when (maybe-require-package 'reformatter)
+    (reformatter-define hindent
+      :program "hindent"
+      :lighter " Hin")
+
+    (defalias 'hindent-mode 'hindent-on-save-mode)
+    (add-hook 'haskell-mode-hook 'hindent-on-save-mode)
+
+    (reformatter-define ormolu
+      :program "ormolu"
+      :lighter " Orm"))
+
+  (with-eval-after-load 'haskell-mode
+    (define-key haskell-mode-map (kbd "C-c h") 'hoogle)
+    (define-key haskell-mode-map (kbd "C-o") 'open-line)
+    (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
+
+
+  (with-eval-after-load 'page-break-lines
+    (add-to-list 'page-break-lines-modes 'haskell-mode))
+
+
+  (define-minor-mode stack-exec-path-mode
+    "If this is a stack project, set `exec-path' to the path \"stack exec\" would use."
+    nil
+    :lighter ""
+    :global nil
+    (if stack-exec-path-mode
+	(when (and (executable-find "stack")
+                   (locate-dominating-file default-directory "stack.yaml"))
+          (let ((stack-path (replace-regexp-in-string
+                             "[\r\n]+\\'" ""
+                             (shell-command-to-string (concat "stack exec -- sh -c "
+                                                              (shell-quote-argument "echo $PATH"))))))
+            (setq-local exec-path (seq-uniq (parse-colon-path stack-path) 'string-equal))
+            (make-local-variable 'process-environment)
+            (setenv "PATH" (string-join exec-path path-separator))))
+      (kill-local-variable 'exec-path)
+      (kill-local-variable 'process-environment)))
+
+  (add-hook 'haskell-mode-hook 'stack-exec-path-mode)
+
+  (when (maybe-require-package 'dhall-mode)
+    (add-hook 'dhall-mode-hook 'stack-exec-path-mode)))
