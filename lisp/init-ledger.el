@@ -3,17 +3,17 @@
 ;;; Code:
 
 (when (maybe-require-package 'ledger-mode)
-  (when (maybe-require-package 'flycheck-ledger)
-    (with-eval-after-load 'flycheck
-      (with-eval-after-load 'ledger-mode
-        (require 'flycheck-ledger))))
+  ;; (when (maybe-require-package 'flycheck-ledger)
+  ;;   (with-eval-after-load 'flycheck
+  ;;     (with-eval-after-load 'ledger-mode
+  ;;       (require 'flycheck-ledger))))
 
   (with-eval-after-load 'ledger-mode
     (define-key ledger-mode-map (kbd "RET") 'newline)
     (define-key ledger-mode-map (kbd "C-o") 'open-line))
 
-  (setq ledger-highlight-xact-under-point nil
-        ledger-use-iso-dates nil
+  (setq ledger-highlight-xact-under-point t
+        ledger-use-iso-dates t
         ledger-mode-should-check-version nil)
 
   (with-eval-after-load 'ledger-mode
