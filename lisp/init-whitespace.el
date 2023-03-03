@@ -14,6 +14,7 @@
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook 'sanityinc/show-trailing-whitespace))
 
+(add-hook 'write-file-hooks 'delete-trailing-whitespace)
 
 (require-package 'whitespace-cleanup-mode)
 (add-hook 'after-init-hook 'global-whitespace-cleanup-mode)
