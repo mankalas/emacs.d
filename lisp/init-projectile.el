@@ -8,6 +8,8 @@
   ;; Shorter modeline
   (setq-default projectile-mode-line-prefix " Proj")
 
+  (setq projectile-create-missing-test-files 1)
+
   (when (executable-find "rg")
     (setq-default projectile-generic-command "rg --files --hidden"))
 
