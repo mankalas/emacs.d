@@ -11,7 +11,7 @@
   (setq projectile-create-missing-test-files 1)
 
   (when (executable-find "rg")
-    (setq-default projectile-generic-command "rg --files --hidden"))
+    (setq-default projectile-generic-command "rg --files --hidden -0"))
 
   (with-eval-after-load 'projectile
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
