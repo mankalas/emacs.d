@@ -18,6 +18,7 @@
 ;; `org-todo-keywords' is customised here to provide corresponding
 ;; TODO states, which should make sense to GTD adherents.
 
+
 ;;; Code:
 
 (when *is-a-mac*
@@ -51,12 +52,12 @@
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
       org-tags-column 80
-      org-agenda-files '("~/org/")
       org-journal-file-format  "%Y%m%d.org"
       org-journal-enable-agenda-integration t
-      org-default-notes-file (expand-file-name "~/org/todo.org")
-      org-journal-dir (expand-file-name "~/org/journal"))
-
+      org-default-notes-file (expand-file-name "~~/Dropbox/org/todo.org")
+      org-journal-dir (expand-file-name "~/Dropbox/org/"))
+      org-agenda-files-list '("~/Dropbox/org/")
+      org-agenda-files '("~/Dropbox/org/"))
 
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 
