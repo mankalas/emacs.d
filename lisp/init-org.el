@@ -49,7 +49,10 @@
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80)
+      org-tags-column 80
+      org-directory "~/Dropbox/org/"
+      org-default-notes-file (concat org-directory "/inbox.org")
+      org-agenda-files (list org-directory))
 
 
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
