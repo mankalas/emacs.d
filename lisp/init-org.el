@@ -384,6 +384,18 @@ typical word processor."
       (sql . t)
       (sqlite . t)))))
 
+
+
+(setq org-journal-dir (concat org-directory "/journal")
+      org-journal-file-type 'weekly
+      org-journal-enable-agenda-integration t)
+(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+(global-set-key (kbd "C-c s") 'org-journal-search)
+(global-set-key (kbd "C-c b") 'org-journal-previous-entry)
+(global-set-key (kbd "C-c b") 'org-journal-next-entry)
+(require-package 'org-journal)
+
+
 
 (provide 'init-org)
 ;;; init-org.el ends here
