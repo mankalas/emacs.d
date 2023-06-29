@@ -384,6 +384,27 @@ typical word processor."
       (sql . t)
       (sqlite . t)))))
 
+
+
+(setq org-journal-dir (concat org-directory "/journal")
+      org-journal-file-type 'weekly
+      org-journal-enable-agenda-integration t)
+(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+(global-set-key (kbd "C-c s") 'org-journal-search)
+(global-set-key (kbd "C-c b") 'org-journal-previous-entry)
+(global-set-key (kbd "C-c b") 'org-journal-next-entry)
+(require-package 'org-journal)
+
+(defun org-journal-save-entry-and-exit()
+  "Simple convenience function.
+  Saves the buffer of the current day's entry and kills the window
+  Similar to org-capture like behavior"
+  (interactive)
+  (save-buffer)
+  (kill-buffer-and-window))
+(define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
+
+
 
 (provide 'init-org)
 ;;; init-org.el ends here
