@@ -10,3 +10,7 @@
 
 ;;; Measure startup time
 (require 'init-benchmarking)
+
+;;; OSX keys
+(defconst *is-a-mac* (eq system-type 'darwin))
+(require 'init-osx-keys)
