@@ -14,3 +14,14 @@
 ;;; OSX keys
 (defconst *is-a-mac* (eq system-type 'darwin))
 (require 'init-osx-keys)
+
+;;; Bootstrap config
+
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(require 'init-utils)
+(require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
+;; Calls (package-initialize)
+(require 'init-elpa)      ;; Machinery for installing required packages
+(require 'init-exec-path) ;; Set up $PATH
+
+(provide 'init)
