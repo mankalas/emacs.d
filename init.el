@@ -32,6 +32,7 @@
 (maybe-require-package 'scratch)
 
 (require 'init-themes)
+(require 'init-gui-frames)
 
 
 (provide 'init)
