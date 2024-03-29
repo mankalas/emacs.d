@@ -25,7 +25,6 @@
 (require 'init-exec-path) ;; Set up $PATH
 
 
-
 ;; Load configs for specific features and modes
 
 ;;; Extra packages which don't require any configuration
@@ -33,6 +32,6 @@
 
 (require 'init-themes)
 (require 'init-gui-frames)
-
+(require 'init-grep)
 
 (provide 'init)
