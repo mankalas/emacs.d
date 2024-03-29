@@ -24,4 +24,14 @@
 (require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
 
+
+
+;; Load configs for specific features and modes
+
+;;; Extra packages which don't require any configuration
+(maybe-require-package 'scratch)
+
+(require 'init-themes)
+
+
 (provide 'init)
