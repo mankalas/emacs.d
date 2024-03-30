@@ -33,5 +33,7 @@
 (require 'init-themes)
 (require 'init-gui-frames)
 (require 'init-grep)
+(require 'init-eglot)
+(require 'init-sessions)
 
 (provide 'init)
