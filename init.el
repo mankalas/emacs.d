@@ -36,4 +36,6 @@
 (require 'init-eglot)
 (require 'init-sessions)
 
+(require 'init-org)
+
 (provide 'init)
