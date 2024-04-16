@@ -35,6 +35,7 @@
 (require 'init-grep)
 (require 'init-eglot)
 (require 'init-sessions)
+(require 'init-isearch)
 
 (require 'init-org)
 
