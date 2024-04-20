@@ -30,13 +30,25 @@
 ;;; Extra packages which don't require any configuration
 (maybe-require-package 'scratch)
 
+
+;;; Emacs
 (require 'init-themes)
 (require 'init-gui-frames)
-(require 'init-grep)
-(require 'init-eglot)
 (require 'init-sessions)
 (require 'init-isearch)
-
+(require 'init-uniquify)
 (require 'init-org)
+
+;;; Tools
+(require 'init-grep)
+(require 'init-flymake)
+(require 'init-git)
+
+;;; Languages
+(require 'init-eglot)
+
+(require 'init-ledger)
+
+
 
 (provide 'init)
