@@ -175,7 +175,13 @@ typical word processor."
 ;;; Agenda views
 
 (setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
-
+(setq-default org-agenda-files
+              (append
+               ;; All .org files in the main directory
+               (directory-files "/Users/vincent/Dropbox/org" t "\\.org$")
+               (directory-files "/Users/vincent/Dropbox/org/roam" t "\\.org$")
+               (directory-files "/Users/vincent/Dropbox/org/journal" t ".*")
+               ))
 
 (let ((active-project-match "-INBOX/PROJECT"))
 
