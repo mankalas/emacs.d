@@ -162,9 +162,9 @@ typical word processor."
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-              (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
+              (sequence "PROJECT(p)"  "AREA(a)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
               (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
-      org-todo-repeat-to-state "NEXT")
+      org-todo-repeat-to-state "TODO")
 
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
@@ -178,9 +178,9 @@ typical word processor."
 (setq-default org-agenda-files
               (append
                ;; All .org files in the main directory
-               (directory-files "/Users/vincent/Dropbox/org" t "\\.org$")
-               (directory-files "/Users/vincent/Dropbox/org/roam" t "\\.org$")
-               (directory-files "/Users/vincent/Dropbox/org/journal" t ".*")
+               (directory-files "/Users/vincent/Nextcloud/org" t "\\.org$")
+               (directory-files "/Users/vincent/Nextcloud/org/roam" t "\\.directory$")
+;               (org-files "/Users/vincent/Nextcloud/org/journal" t ".*")
                ))
 
 (let ((active-project-match "-INBOX/PROJECT"))
@@ -235,7 +235,7 @@ typical word processor."
                         (org-agenda-todo-ignore-scheduled 'future)
                         (org-agenda-skip-function
                          '(lambda ()
-                            (or (org-agenda-skip-subtree-if 'todo '("PROJECT" "HOLD" "WAITING" "DELEGATED"))
+                            (or (org-agenda-skip-subtree-if 'todo '("PROJECT" "AREA" "HOLD" "WAITING" "DELEGATED"))
                                 (org-agenda-skip-subtree-if 'nottododo '("TODO")))))
                         (org-tags-match-list-sublevels t)
                         (org-agenda-sorting-strategy
@@ -392,7 +392,7 @@ typical word processor."
 
 
 
-(setq org-journal-dir (concat org-directory "/journal")
+(setq org-journal-dir "/Users/vincent/Nextcloud/org"
       org-journal-file-type 'weekly
       org-journal-enable-agenda-integration t)
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
