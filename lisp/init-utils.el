@@ -38,6 +38,10 @@ BUFFER and ALIST are as for `display-buffer-full-frame'."
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
+(defun sanityinc/remove-auto-mode (mode)
+  "Remove entries from `auto-mode-alist' that are for `MODE'."
+  (setq auto-mode-alist (seq-remove (lambda (x) (eq mode (cdr x))) auto-mode-alist)))
+
 ;; Like diminish, but for major modes
 (defun sanityinc/set-major-mode-name (name)
   "Override the major mode NAME in this buffer."
@@ -72,7 +76,7 @@ BUFFER and ALIST are as for `display-buffer-full-frame'."
   (when (yes-or-no-p (format "Really delete '%s'?"
                              (file-name-nondirectory buffer-file-name)))
     (delete-file (buffer-file-name))
-    (kill-this-buffer)))
+    (kill-buffer)))
 
 
 

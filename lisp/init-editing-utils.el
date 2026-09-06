@@ -86,7 +86,9 @@
 
 (when (fboundp 'display-line-numbers-mode)
   (setq-default display-line-numbers-width 3)
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (add-hook 'yaml-mode-hook 'display-line-numbers-mode)
+  (add-hook 'yaml-ts-mode-hook 'display-line-numbers-mode))
 
 
 
@@ -236,7 +238,7 @@
       (let ;; To make `end-of-line' and etc. to ignore fields.
           ((inhibit-field-text-motion t))
         (sort-subr nil 'forward-line 'end-of-line nil nil
-                   (lambda (s1 s2) (eq (random 2) 0)))))))
+                   (lambda (_ _) (eq (random 2) 0)))))))
 
 
 
@@ -261,6 +263,10 @@ ORIG is the advised function, which is called with its ARGS."
 
 (advice-add 'kmacro-call-macro :around 'sanityinc/disable-features-during-macro-call)
 
+
+(when (maybe-require-package 'expreg)
+  (global-set-key (kbd "C-=") 'expreg-expand)
+  (global-set-key (kbd "C--") 'expreg-contract))
 
 (provide 'init-editing-utils)
 ;;; init-editing-utils.el ends here
