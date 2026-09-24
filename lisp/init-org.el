@@ -175,12 +175,21 @@ typical word processor."
 ;;; Agenda views
 
 (setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
+
+(defun sanityinc/org-dir-files (subdir regexp)
+  "Return the files matching REGEXP in SUBDIR of `org-directory'.
+Yields nil rather than signalling when the directory is absent, so that
+an org tree which hasn't synced yet doesn't take startup down with it."
+  (let ((dir (expand-file-name subdir org-directory)))
+    (when (file-directory-p dir)
+      (directory-files dir t regexp))))
+
 (setq-default org-agenda-files
               (append
                ;; All .org files in the main directory
-               (directory-files "/Users/vincent/Nextcloud/org" t "\\.org$")
-               (directory-files "/Users/vincent/Nextcloud/org/roam" t "\\.directory$")
-;               (org-files "/Users/vincent/Nextcloud/org/journal" t ".*")
+               (sanityinc/org-dir-files "." "\\.org$")
+               (sanityinc/org-dir-files "roam" "\\.directory$")
+;               (sanityinc/org-dir-files "journal" ".*")
                ))
 
 (setq org-stuck-projects
@@ -392,7 +401,7 @@ typical word processor."
 
 
 
-(setq org-journal-dir "/Users/vincent/Nextcloud/org"
+(setq org-journal-dir (expand-file-name "journal" org-directory)
       org-journal-file-type 'weekly
       org-journal-enable-agenda-integration t)
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
