@@ -1,3 +1,7 @@
+;; -*- lexical-binding: t; -*-
+
+(require-package 'zenburn-theme)
+
 (custom-set-variables '(custom-enabled-themes '(zenburn))
                       '(calendar-week-start-day 1))
 
