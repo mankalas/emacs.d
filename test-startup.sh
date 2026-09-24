@@ -7,8 +7,10 @@ ${EMACS:=emacs} -nw --batch \
                               (url-show-status nil)
                               (user-emacs-directory default-directory)
                               (user-init-file (expand-file-name "init.el"))
+                              (early-init-file (expand-file-name "early-init.el"))
                               (load-path (delq default-directory load-path)))
                            (setq package-check-signature nil)
+                           (load-file early-init-file)
                            (load-file user-init-file)
                            (run-hooks (quote after-init-hook))))'
 echo "Startup successful"
