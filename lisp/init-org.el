@@ -341,12 +341,6 @@ an org tree which hasn't synced yet doesn't take startup down with it."
 
 
 
-(require-package 'org-pomodoro)
-(setq org-pomodoro-keep-killed-pomodoro-time t)
-(with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
-
-
 ;; ;; Show iCal calendars in the org agenda
 ;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
 ;;   (setq org-agenda-include-diary t
