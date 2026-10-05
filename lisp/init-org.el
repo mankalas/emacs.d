@@ -162,9 +162,9 @@ typical word processor."
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)")
-              (sequence "PROJECT(p)"  "AREA(a)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
+              (sequence "PROJECT(p)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")
               (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
-      org-todo-repeat-to-state "TODO")
+      org-todo-repeat-to-state "NEXT")
 
 (setq org-todo-keyword-faces
       (quote (("NEXT" :inherit warning)
@@ -176,21 +176,6 @@ typical word processor."
 
 (setq-default org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
 
-(defun sanityinc/org-dir-files (subdir regexp)
-  "Return the files matching REGEXP in SUBDIR of `org-directory'.
-Yields nil rather than signalling when the directory is absent, so that
-an org tree which hasn't synced yet doesn't take startup down with it."
-  (let ((dir (expand-file-name subdir org-directory)))
-    (when (file-directory-p dir)
-      (directory-files dir t regexp))))
-
-(setq-default org-agenda-files
-              (append
-               ;; All .org files in the main directory
-               (sanityinc/org-dir-files "." "\\.org$")
-               (sanityinc/org-dir-files "roam" "\\.directory$")
-;               (sanityinc/org-dir-files "journal" ".*")
-               ))
 
 (setq org-stuck-projects
       '("-INBOX/PROJECT" ("NEXT")))
@@ -341,6 +326,12 @@ an org tree which hasn't synced yet doesn't take startup down with it."
 
 
 
+(require-package 'org-pomodoro)
+(setq org-pomodoro-keep-killed-pomodoro-time t)
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
+
+
 ;; ;; Show iCal calendars in the org agenda
 ;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
 ;;   (setq org-agenda-include-diary t
@@ -393,18 +384,6 @@ an org tree which hasn't synced yet doesn't take startup down with it."
       (sql . t)
       (sqlite . t)))))
 
-
-
-(setq org-journal-dir (expand-file-name "journal" org-directory)
-      org-journal-file-type 'weekly
-      org-journal-enable-agenda-integration t)
-(global-set-key (kbd "C-c j") 'org-journal-new-entry)
-(global-set-key (kbd "C-c s") 'org-journal-search)
-(global-set-key (kbd "C-c b") 'org-journal-previous-entry)
-(global-set-key (kbd "C-c b") 'org-journal-next-entry)
-(require-package 'org-journal)
-
-
 
 (provide 'init-org)
 ;;; init-org.el ends here
