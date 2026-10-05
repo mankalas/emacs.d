@@ -14,6 +14,10 @@
               (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
       org-todo-repeat-to-state "TODO")
 
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-habit)
+  (require 'org-habit))
+
 (setq org-journal-dir (expand-file-name "journal" org-directory)
       org-journal-file-type 'weekly
       org-journal-enable-agenda-integration t)
