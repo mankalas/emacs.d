@@ -31,7 +31,13 @@
          ("C-c n m" . init-roam-capture-meeting))
   :config
   (require 'org-roam-dailies)
-  (org-roam-db-autosync-mode))
+  (org-roam-db-autosync-mode)
+  ;; Buffers restored by desktop before org-roam loaded missed its find-file
+  ;; setup, so the backlinks buffer wouldn't follow them
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (when (and buffer-file-name (org-roam-file-p))
+        (run-hooks 'org-roam-find-file-hook)))))
 
 (defun init-roam-capture-meeting ()
   "Capture meeting notes into today's roam daily."
