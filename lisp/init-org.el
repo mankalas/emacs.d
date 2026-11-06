@@ -110,6 +110,9 @@ typical word processor."
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
+;; Stored links (%a, C-c l) use IDs so they survive refiling
+(setq org-id-link-to-org-use-id 'create-if-interactive)
+
 (setq org-capture-templates
       `(("t" "todo" entry (file "")  ; "" => `org-default-notes-file'
          "* NEXT %?\n%U\n" :clock-resume t)
