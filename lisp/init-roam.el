@@ -11,6 +11,15 @@
   :custom
   (org-roam-directory "~/Documents/org/roam") ;; your note folder
   (org-roam-dailies-directory "daily/")
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?"
+      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("p" "project" plain
+      "* Goal\n%?\n* Stakeholders\n* Decisions\n* Links\n- Actions: [[id:][gtd.org]]\n"
+      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                         "#+title: ${title}\n#+filetags: :project:\n")
+      :unnarrowed t)))
   (org-roam-dailies-capture-templates
    '(("m" "meeting" entry
       "* %<%Y-%m-%d %H:%M> %^{Meeting} :meeting:\n:PROPERTIES:\n:ID: %(org-id-new)\n:END:\nWith: %?\nRe: \n** Notes\n** Decisions\n** Actions\n"
