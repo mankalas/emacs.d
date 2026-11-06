@@ -28,6 +28,7 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
+         ("C-c n r" . org-roam-refile)
          ("C-c n m" . init-roam-capture-meeting))
   :config
   (require 'org-roam-dailies)
