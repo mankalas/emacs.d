@@ -28,6 +28,9 @@
   "Capture meeting notes into today's roam daily."
   (interactive)
   (require 'org-roam-dailies)
+  ;; Flycheck's org-lint errors in the mode hook if the directory is missing,
+  ;; which stops font-lock being enabled in the new buffer
+  (make-directory (expand-file-name org-roam-dailies-directory org-roam-directory) t)
   (org-roam-dailies-capture-today nil "m"))
 
 (provide 'init-roam)
