@@ -202,6 +202,13 @@ typical word processor."
             (org-tags-match-list-sublevels t)))
           ("g" "GTD"
            ((agenda "" nil)
+            ;; Absences over the next six weeks, to plan the team's work around
+            (agenda ""
+                    ((org-agenda-overriding-header "Upcoming leave")
+                     (org-agenda-files '("~/Documents/org/roam/leave.org"))
+                     (org-agenda-start-day "+1d")
+                     (org-agenda-span 42)
+                     (org-agenda-show-all-dates nil)))
             (tags "INBOX"
                   ((org-agenda-overriding-header "Inbox")
                    (org-tags-match-list-sublevels nil)))
