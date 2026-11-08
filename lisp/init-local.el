@@ -34,8 +34,8 @@
 (when (maybe-require-package 'org-mcp)
   (setq org-mcp-allowed-files
         (mapcar (lambda (f) (expand-file-name f org-directory))
-                '("inbox.org" "gtd.org" "execute.org" "delegation.org"
-                  "inbox.org_archive" "execute.org_archive")))
+                '("inbox.org" "gtd.org"
+                  "inbox.org_archive" "gtd.org_archive" "execute.org_archive")))
   ;; Clients register the tools themselves through emacs-mcp-stdio.sh
   ;; (--init-function=org-mcp-enable), which isn't autoloaded, so load
   ;; the package and start accepting requests once init is done.
