@@ -58,3 +58,12 @@ site-lisp/package/
 /projects
 /forge-*.sqlite
 /projectile.cache
+
+# Emacs state and caches
+/org-roam.db
+/recentf.eld
+/projectile-frecency.eld
+/network-security.eld
+
+# Installed by the MCP server package; ~/.claude.json points at it
+/emacs-mcp-stdio.sh
