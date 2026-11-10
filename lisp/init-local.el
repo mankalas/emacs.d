@@ -52,5 +52,23 @@
                          (require 'org-mcp)
                          (mcp-server-lib-start))))
 
+;;; Buffers
+
+(defun nuke-all-buffers ()
+  "Kill every buffer and leave a single window on *scratch*.
+
+Buffers with unsaved changes or a live process ask first; any you
+decline are left alone, and the rest are still killed.
+
+Note that `desktop-save-mode' is on: quitting Emacs after this
+writes an empty desktop, and the previous session's buffers are
+then gone for good."
+  (interactive)
+  (when (yes-or-no-p (format "Kill all %d buffers? " (length (buffer-list))))
+    (mapc #'kill-buffer (buffer-list))
+    (delete-other-windows)
+    (switch-to-buffer (get-scratch-buffer-create))))
+
+
 (provide 'init-local)
 ;;; init-local.el ends here
