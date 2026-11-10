@@ -14,8 +14,12 @@
               (sequence "WAITING(w@/!)" "DELEGATED(e!)" "HOLD(h)" "|" "CANCELLED(c@/!)")))
       org-todo-repeat-to-state "TODO")
 
+;; Set `org-modules' rather than adding to it: the default value pulls in
+;; `ol-gnus', `ol-docview' and `ol-eww', so opening any org file loads the
+;; whole of Gnus and doc-view.  That costs about 750ms of startup, and none
+;; of those link types are ones we store or follow.
 (with-eval-after-load 'org
-  (add-to-list 'org-modules 'org-habit)
+  (setq org-modules '(org-habit))
   (require 'org-habit))
 
 (setq org-journal-dir (expand-file-name "journal" org-directory)
@@ -38,11 +42,15 @@
                   "inbox.org_archive" "gtd.org_archive" "execute.org_archive")))
   ;; Clients register the tools themselves through emacs-mcp-stdio.sh
   ;; (--init-function=org-mcp-enable), which isn't autoloaded, so load
-  ;; the package and start accepting requests once init is done.
-  (add-hook 'after-init-hook
-            (lambda ()
-              (require 'org-mcp)
-              (mcp-server-lib-start))))
+  ;; the package and start accepting requests once init is done.  Do it
+  ;; on an idle timer rather than `after-init-hook': org-mcp requires
+  ;; `org', `org-agenda', `org-archive' and `org-id' at load time, which
+  ;; is around half a second we would otherwise spend before the first
+  ;; frame is usable.  No client connects in the first second.
+  (run-with-idle-timer 1 nil
+                       (lambda ()
+                         (require 'org-mcp)
+                         (mcp-server-lib-start))))
 
 (provide 'init-local)
 ;;; init-local.el ends here
